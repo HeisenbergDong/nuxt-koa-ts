@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _338fcc8c = () => interopDefault(import('../pages/Gambling.vue' /* webpackChunkName: "pages/Gambling" */))
 const _67452cdb = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -79,6 +80,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/Gambling",
+      component: _338fcc8c,
+      name: "Gambling"
+    }, {
       path: "/",
       component: _67452cdb,
       name: "index"

@@ -12,6 +12,7 @@ import categoryRouter from './router/categoryRouter';
 import orderRouter from './router/orderRouter';
 import searchRouter from './router/searchRouter';
 import userRouter from './router/userRouter';
+import LotteryRouter from './router/lotteryRouter';
 
 const app = new Koa();
 const { Nuxt, Builder } = require('nuxt');
@@ -48,6 +49,7 @@ async function start() {
     app.use(orderRouter.routes()).use(orderRouter.allowedMethods());
     app.use(searchRouter.routes()).use(searchRouter.allowedMethods());
     app.use(userRouter.routes()).use(userRouter.allowedMethods());
+    app.use(LotteryRouter.routes()).use(LotteryRouter.allowedMethods());
 
     app.use((ctx: any) => {
         ctx.status = 200; // koa defaults to 404 when it sees that status is unset

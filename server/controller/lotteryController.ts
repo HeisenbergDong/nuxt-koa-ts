@@ -7,10 +7,13 @@ export default class LotteryController {
 
     let { sequence } = ctx.request.body;
     let day:Date = new Date();
-    let year:number = day.getFullYear();
+    let year = day.getFullYear();
     let month = (day.getMonth() + 1) >=10? (day.getMonth() + 1) : "0" + (day.getMonth() + 1);
     let date = day.getDate() >=10 ? day.getDate() : "0" + day.getDate();
-    let currentDate = year + '-' + month + '-' + date + ' ' + day.getHours() + ':' + day.getMinutes() + ':' + day.getSeconds();
+    let hours = day.getHours() >=10 ? day.getHours() : "0" + day.getHours();
+    let minutes = day.getMinutes() >=10 ? day.getMinutes() : "0" + day.getMinutes();
+    let seconds = day.getSeconds() >=10 ? day.getSeconds() : "0" + day.getSeconds();
+    let currentDate = year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + seconds;
     let d = currentDate.toString();
     let s = year.toString() + month.toString() + date.toString() + sequence.toString();
     let n1 = Math.floor(Math.random()*10);
@@ -52,7 +55,7 @@ export default class LotteryController {
     try {
       let lotteries = await Lottery.find().skip(page * 12)
         .limit(12)
-        .sort({'_id':-1});
+        .sort({'s':-1});
       ctx.body = {
         code: 0,
         lotteries
@@ -82,6 +85,19 @@ export default class LotteryController {
       ctx.body = {
         code: -1,
         result: {}
+      }
+    }
+  }
+
+  public static async initAll (ctx: BaseContext) {
+    let date:Date = new Date();
+    let minutes = (date.getMinutes()%5 === 5&&date.getSeconds()===0) ? 5:4 - date.getMinutes()%5;
+    let seconds = 60 - date.getSeconds();
+    ctx.body = {
+      code: 0,
+      initValue: {
+        minutes,
+        seconds
       }
     }
   }

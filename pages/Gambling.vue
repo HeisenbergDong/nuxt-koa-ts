@@ -68,10 +68,10 @@
   @Component
   export default class Gambling extends Vue implements Data{
 
-    t = "02:00";
+    t = "";
     s = "";
-    minutes = 2;
-    seconds = 0;
+    minutes = (new Date().getMinutes()%5 === 5&&new Date().getSeconds()===0) ? 5:4 - new Date().getMinutes()%5;
+    seconds = 60 - new Date().getSeconds();
     n1 = 0;
     n2 = 0;
     n3 = 0;
@@ -80,10 +80,19 @@
     lotteries = [];
 
     /*初始化界面*/
-    initAll(){
-      this.t = "02:00";
-      this.minutes = 2;
-      this.seconds = 0;
+    async initAll(){
+      const {status,data:{initValue}} = await this.$axios.get('/lottery/init',{
+        params:{}
+      });
+      if(status == 200){
+        this.minutes = initValue.minutes;
+        this.seconds = initValue.seconds;
+        this.t = this.minutes + ':' + this.num(this.seconds);
+      }else{
+        this.minutes = (new Date().getMinutes()%5 === 5&&new Date().getSeconds()===0) ? 5:4 - new Date().getMinutes()%5;
+        this.seconds = 60 - new Date().getSeconds();
+        this.t = "";
+      }
     }
 
 
@@ -130,7 +139,7 @@
     async getHistory(){
       let {status,data:{lotteries}} = await this.$axios.get('/lottery/history',{
         params:{
-          page: 1
+          page: 0
         }
       });
       if(status === 200){
@@ -147,7 +156,7 @@
 
     /*倒计时*/
     async mounted(){
-      this.generate();
+      this.initAll();
       this.getCurrent();
       this.getHistory();
       setInterval(()=>{

@@ -31,21 +31,24 @@ export default class LotteryController {
       n4,
       n5
     });
-    try {
-      let result = await lottery.save();
-      if (result) {
-        ctx.body = {
-          code: 0,
-          result:result
+    let lotteries = await Lottery.find({ s }).limit(5);
+    if(lotteries.length === 0){
+      try {
+        let result = await lottery.save();
+        if (result) {
+          ctx.body = {
+            code: 0,
+            result:result
+          }
+        } else {
+          ctx.body = {
+            code: -1
+          }
         }
-      } else {
+      } catch (e) {
         ctx.body = {
           code: -1
         }
-      }
-    } catch (e) {
-      ctx.body = {
-        code: -1
       }
     }
   }
@@ -53,16 +56,19 @@ export default class LotteryController {
   public static async getHistory (ctx: BaseContext) {
     let { page } = ctx.query;
     try {
+      let total = await Lottery.find().count();
       let lotteries = await Lottery.find().skip(page * 12)
         .limit(12)
         .sort({'s':-1});
       ctx.body = {
         code: 0,
+        total,
         lotteries
       }
     }catch (e) {
       ctx.body = {
         code: -1,
+        total:0,
         lotteries: []
       }
     }
@@ -84,21 +90,43 @@ export default class LotteryController {
     }catch (e) {
       ctx.body = {
         code: -1,
-        result: {}
+        lottery: {}
       }
     }
   }
 
+
   public static async initAll (ctx: BaseContext) {
+
     let date:Date = new Date();
-    let minutes = (date.getMinutes()%5 === 5&&date.getSeconds()===0) ? 5:4 - date.getMinutes()%5;
-    let seconds = 60 - date.getSeconds();
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1) >=10? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+    let day = date.getDate() >=10 ? date.getDate() : "0" + date.getDate();
+    let minutes = 4 - date.getMinutes()%5;
+    let seconds:number = 59 - date.getSeconds();
+    let second = seconds < 10 ? '0' + seconds : '' + seconds;
+    let s:string = year.toString() + month.toString() + day.toString();
+    let t = minutes + ':' + second;
+    let initValue = {
+      s:s + '10000',
+      minutes,
+      seconds,
+      t
+    };
+
+    let lotteries = await Lottery.find().sort({'s':-1}).limit(1);
+    if(lotteries.length !== 0){
+      initValue = {
+        s: lotteries[0].s,
+        minutes,
+        seconds,
+        t
+      }
+    }
+
     ctx.body = {
       code: 0,
-      initValue: {
-        minutes,
-        seconds
-      }
+      initValue
     }
   }
 }

@@ -91,12 +91,13 @@
         this.seconds = initValue.seconds;
         this.t = this.minutes + ':' + this.num(this.seconds);
         this.s = initValue.s;
-        if(this.t == '4:40'){
+        if(this.t == '0：00'){
           this.generate(this.s);
           this.getCurrent(this.s);
           this.getHistory(1);
         }
         this.getCurrent(this.s);
+        this.getHistory(1);
       }else{
         this.minutes = 4 - new Date().getMinutes()%5;
         this.seconds = 59 - new Date().getSeconds();

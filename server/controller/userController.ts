@@ -137,7 +137,7 @@ export default class OrderController {
   }
 
   public static async logOut (ctx: BaseContext) {
-    await ctx.logout()
+    await ctx.logout();
     if (!ctx.isAuthenticated()) {
       ctx.body = {
         code: 0

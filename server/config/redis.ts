@@ -19,7 +19,7 @@ import Redis from "ioredis";
 
 const redisClient = {
   port: 6379,          // Redis port
-  host: '127.0.0.1'    // Redis host
+  host: '192.168.11.1'    // Redis host
 }
 
 const redisConfig = new Redis(redisClient);

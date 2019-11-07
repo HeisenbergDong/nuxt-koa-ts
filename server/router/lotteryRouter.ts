@@ -3,9 +3,9 @@ import LotteryController from '../controller/lotteryController';
 
 const lotteryRouter = new Router({prefix: '/lottery'});
 
-lotteryRouter.post('/generate', LotteryController.generate);
 lotteryRouter.get('/history', LotteryController.getHistory);
 lotteryRouter.get('/current', LotteryController.getCurrent);
-lotteryRouter.get('/init', LotteryController.initAll);
+lotteryRouter.get('/init', LotteryController.init);
+lotteryRouter.get('/schedule', LotteryController.schedule);
 
 export default lotteryRouter;

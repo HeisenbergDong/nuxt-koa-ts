@@ -44,6 +44,18 @@
     </div>
     <!-- 分页器 -->
     <div class="pagination">
+<!--      <el-pagination-->
+<!--              prev-text="上一页"-->
+<!--              next-text="下一页"-->
+<!--              background-->
+<!--              :current-page="curObj.pageNo"-->
+<!--              :page-sizes="[15, 100, 200, 300, 400]"-->
+<!--              :page-size="curObj.pageSize"-->
+<!--              layout="prev, pager, next,sizes, jumper"-->
+<!--              :total="profitTotalCount"-->
+<!--              @size-change="handleProfitSizeChange"-->
+<!--              @current-change="handleCurrentProfitChange"-->
+<!--      ></el-pagination>-->
       <el-pagination background layout="prev, pager, next" :total="total" @current-page="getHistory"></el-pagination>
     </div>
   </div>
@@ -55,8 +67,6 @@
   interface Data {
     t: string,
     s: string,
-    minutes: number,
-    seconds: number,
     n1: number,
     n2: number,
     n3: number,
@@ -71,8 +81,6 @@
 
     t = "";
     s = "";
-    minutes = 4 - new Date().getMinutes()%5;
-    seconds = 59 - new Date().getSeconds();
     n1 = 0;
     n2 = 0;
     n3 = 0;
@@ -82,48 +90,30 @@
     total=1;
 
     /*初始化界面*/
-    async initAll(){
+    async init(){
       const {status,data:{initValue}} = await this.$axios.get('/lottery/init',{
         params:{}
       });
       if(status == 200){
-        this.minutes = initValue.minutes;
-        this.seconds = initValue.seconds;
-        this.t = this.minutes + ':' + this.num(this.seconds);
-        this.s = initValue.s;
-        if(this.t == '0：00'){
-          this.generate(this.s);
-          this.getCurrent(this.s);
+        this.t = initValue.t;
+        if(this.t == '0:00'){
+          this.getCurrent();
           this.getHistory(1);
         }
-        this.getCurrent(this.s);
-        this.getHistory(1);
       }else{
-        this.minutes = 4 - new Date().getMinutes()%5;
-        this.seconds = 59 - new Date().getSeconds();
         this.t = "";
         this.s = "";
       }
     }
 
-
-    /*生成当期信息*/
-    async generate(s: string){
-      let sequence = Number(s.substring(8))+1;
-      await this.$axios.post('/lottery/generate',{
-        sequence
-      });
-    }
-
     /*获取当期信息*/
-    async getCurrent(s: string){
-      let sequence = Number(s.substring(8));
+    async getCurrent(){
       const {status,data:{lottery}} = await this.$axios.get('/lottery/current',{
         params:{
-          sequence
         }
       });
       if(status === 200 && lottery != null){
+        this.t = lottery.t;
         this.s = lottery.s;
         this.n1 = lottery.n1;
         this.n2 = lottery.n2;
@@ -141,6 +131,7 @@
 
     /*获取往期信息*/
     async getHistory(page: number){
+      console.log(this.s);
       let {status,data:{total,lotteries}} = await this.$axios.get('/lottery/history',{
         params:{
           page: page - 1
@@ -154,18 +145,14 @@
       }
     }
 
-    /*秒补0*/
-    num(n: number){
-      return n < 10 ? '0' + n : '' + n;
-    }
-
     /*倒计时*/
     async mounted(){
-      this.initAll();
+      this.init();
+      this.getCurrent();
       this.getHistory(1);
 
       setInterval(()=>{
-        this.initAll();
+        this.init();
       },1000)
     }
   }

@@ -13,6 +13,7 @@ import orderRouter from './router/orderRouter';
 import searchRouter from './router/searchRouter';
 import userRouter from './router/userRouter';
 import LotteryRouter from './router/lotteryRouter';
+import LottertyController from './controller/lotteryController';
 
 const app = new Koa();
 const { Nuxt, Builder } = require('nuxt');
@@ -70,6 +71,7 @@ async function start() {
         message: `Server listening on http://${host}:${port}`,
         badge: true
     });
+    LottertyController.schedule();
 }
 
 start();

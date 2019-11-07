@@ -1,16 +1,10 @@
 import { BaseContext } from 'koa';
 import { Lottery } from '../entity/lottery';
 import { scheduleJob, Recurrence, RecurrenceRule } from "node-schedule";
-import redisConfig from '../config/redis';
 
 export default class LotteryController {
 
   public static async schedule(){
-    const start = await redisConfig.hget(`schedule`, 'start');
-    console.log(start);
-    if(start === '1'){
-      return;
-    }
     let rule:RecurrenceRule = new RecurrenceRule();
     let time:Recurrence[] = [1,6,11,16,21,26,31,36,41,46,51,56];
     let sequence:number = 10000;
@@ -44,7 +38,6 @@ export default class LotteryController {
         n5
       });
       await lottery.save();
-      await redisConfig.hmset(`schedule`, 'start', '1');
     });
   }
 

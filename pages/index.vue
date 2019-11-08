@@ -4,11 +4,11 @@
     <div class="top">
       <div>
         <img src="~/assets/img/1.jpeg" />
-        <span>Viet Nam Has Noi nam phut xo so.</span>
+        <span>행운5.</span>
       </div>
       <ul>
-        <li>Giai doan tiep theo</li>
-        <li class="date">So<span>{{ s }}</span> doan </li>
+        <li>당기 행운의 숫자</li>
+        <li class="date">제<span>{{ s }}</span> 기간 </li>
         <li class="countdown">{{ t }}</li>
         <li class="result">
           <span>{{ n1 }}</span>
@@ -21,8 +21,8 @@
     </div>
     <!-- 往期开奖信息 -->
     <div class="title">
-      <span>Mo giai thuong ky luc</span>
-      <span>THem lich su.</span>
+      <span>왕기 행운의 숫자</span>
+      <span>행운5.</span>
     </div>
     <div class="table">
       <div class="th">
@@ -44,19 +44,16 @@
     </div>
     <!-- 分页器 -->
     <div class="pagination">
-<!--      <el-pagination-->
-<!--              prev-text="上一页"-->
-<!--              next-text="下一页"-->
-<!--              background-->
-<!--              :current-page="curObj.pageNo"-->
-<!--              :page-sizes="[15, 100, 200, 300, 400]"-->
-<!--              :page-size="curObj.pageSize"-->
-<!--              layout="prev, pager, next,sizes, jumper"-->
-<!--              :total="profitTotalCount"-->
-<!--              @size-change="handleProfitSizeChange"-->
-<!--              @current-change="handleCurrentProfitChange"-->
-<!--      ></el-pagination>-->
-      <el-pagination background layout="prev, pager, next" :total="total" @current-page="getHistory"></el-pagination>
+      <el-pagination
+              background
+              @size-change="handleSizeChange"
+              @current-change="getHistory"
+              :current-page="currentPage"
+              :page-sizes="[12, 24, 48, 96]"
+              :page-size="pageSize"
+              layout="prev, pager, next, sizes, jumper"
+              :total="total">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -73,7 +70,9 @@
     n4: number,
     n5: number,
     lotteries: Array,
-    total: number
+    total: number,
+    currentPage: number,
+    pageSize: number
   }
 
   @Component
@@ -88,6 +87,8 @@
     n5 = 0;
     lotteries = [];
     total=1;
+    currentPage=1;
+    pageSize=12;
 
     /*初始化界面*/
     async init(){
@@ -98,7 +99,7 @@
         this.t = initValue.t;
         if(this.t == '0:00'){
           this.getCurrent();
-          this.getHistory(1);
+          this.getHistory(this.currentPage);
         }
       }else{
         this.t = "";
@@ -129,12 +130,16 @@
       }
     }
 
+    async handleSizeChange(pageSize:number){
+      this.pageSize = pageSize;
+    }
+
+
     /*获取往期信息*/
-    async getHistory(page: number){
-      console.log(this.s);
+    async getHistory(currentPage: number){
       let {status,data:{total,lotteries}} = await this.$axios.get('/lottery/history',{
         params:{
-          page: page - 1
+          currentPage: currentPage - 1
         }
       });
       if(status === 200){
@@ -155,6 +160,8 @@
         this.init();
       },1000)
     }
+
+    pageNo: number;
   }
 
 </script>
@@ -167,7 +174,7 @@ li {
   list-style: none;
 }
 .container {
-  width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 .top {

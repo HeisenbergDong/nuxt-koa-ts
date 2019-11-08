@@ -6,12 +6,11 @@ export default class LotteryController {
 
   public static async schedule(){
     let rule:RecurrenceRule = new RecurrenceRule();
-    let time:Recurrence[] = [1,6,11,16,21,26,31,36,41,46,51,56];
-    let sequence:number = 10000;
-    rule.second = time;
+    let time:Recurrence[] = [0,5,10,15,20,25,30,35,40,45,50,55];
+    rule.minute = time;
     scheduleJob(rule,async ()=>{
-      console.log(new Date().getSeconds());
-      sequence += 1;
+      let sequence:number = 10000 + new Date().getHours()*12 + Math.ceil(new Date().getMinutes()/5);
+      console.log(sequence);
       let day:Date = new Date();
       let year = day.getFullYear();
       let month = (day.getMonth() + 1) >=10? (day.getMonth() + 1) : "0" + (day.getMonth() + 1);
@@ -42,7 +41,7 @@ export default class LotteryController {
   }
 
   public static async getHistory (ctx: BaseContext) {
-    let { page } = ctx.query;
+    let { currentPage } = ctx.query;
     let day:Date = new Date();
     let year = day.getFullYear();
     let month = (day.getMonth() + 1) >=10? (day.getMonth() + 1) : "0" + (day.getMonth() + 1);
@@ -54,7 +53,7 @@ export default class LotteryController {
     }
     try {
       let total = await Lottery.find().count();
-      let lotteries = await Lottery.find({s:{$ne:s}}).skip(page * 12)
+      let lotteries = await Lottery.find({s:{$ne:s}}).skip(currentPage * 12)
         .limit(12)
         .sort({'s':-1});
       ctx.body = {
@@ -133,5 +132,31 @@ export default class LotteryController {
       code: 0,
       initValue
     }
+  }
+
+  public static async update (ctx: BaseContext) {
+    let { n1,n2,n3,n4,n5 } = ctx.query;
+    try {
+      let lotteries = await Lottery.find().sort({'s':-1}).limit(1);
+      if(lotteries.length === 1){
+        let s = lotteries[0].s;
+        Lottery.update({s}, {$set : {n1,n2,n3,n4,n5}},function(err:boolean, res:object){
+          if (err) {
+            console.log("Error:" + err);
+          }
+          else {
+            console.log("Res:" + res);
+          }
+        })
+      }
+      ctx.body = {
+        code: 0
+      }
+    }catch (e) {
+      ctx.body = {
+        code: -1
+      }
+    }
+
   }
 }

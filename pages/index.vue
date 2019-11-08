@@ -4,11 +4,11 @@
     <div class="top">
       <div>
         <img src="~/assets/img/1.jpeg" />
-        <span>행운5.</span>
+        <span></span>
       </div>
       <ul>
         <li>당기 행운의 숫자</li>
-        <li class="date">제<span>{{ s }}</span> 기간 </li>
+        <li class="date">제  <span>{{ s }}</span>  기간 </li>
         <li class="countdown">{{ t }}</li>
         <li class="result">
           <span>{{ n1 }}</span>
@@ -26,9 +26,9 @@
     </div>
     <div class="table">
       <div class="th">
-        <div>thoi gian.</div>
-        <div>soky.</div>
-        <div>mo giai thuong so</div>
+        <div>개상 시간</div>
+        <div>기간</div>
+        <div>행운수</div>
       </div>
       <div class="tr" v-for="(lottery,idx) in lotteries" :key="idx">
         <div>{{lottery.d}}</div>
@@ -51,7 +51,7 @@
               :current-page="currentPage"
               :page-sizes="[12, 24, 48, 96]"
               :page-size="pageSize"
-              layout="prev, pager, next, sizes, jumper"
+              layout="prev, pager, next"
               :total="total">
       </el-pagination>
     </div>
@@ -167,145 +167,277 @@
 </script>
 
 <style>
-ul,
-li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.container {
-  width: 100%;
-  margin: 0 auto;
-}
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 30px;
-  background: url("~assets/img/2.jpeg") no-repeat;
-  background-size: cover;
-  color: #fff;
-}
-.top > div {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.top > div > img {
-  width: 150px;
-  height: 75px;
-  margin-right: 10px;
-}
-.top > ul > li {
-  width: 160px;
-}
-.top > ul > li.date > span {
-  color: #d83c3c;
-}
-.top > ul > li.countdown {
-  height: 34px;
-  line-height: 34px;
-  margin-top: 4px;
-  background: #fff;
-  border: 2px solid #d83c3c;
-  color: #000;
-  font-size: 24px;
-  text-align: center;
-  font-weight: bold;
-}
-.top > ul > li.result {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4px;
-}
-.top > ul > li.result > span {
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  border-radius: 50%;
-  color: #000;
-  text-align: center;
-  line-height: 20px;
-  font-weight: bold;
-  margin: 0 4px;
-}
-.table {
-  border: 1px solid #dcdcdc;
-}
-.th {
-  display: flex;
-  background: #f0f0f0;
-  border-bottom: 1px solid #dcdcdc;
-}
-.th > div {
-  flex: 1;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-  border-right: 1px solid #dcdcdc;
-}
-.th > div:last-child {
-  border-right: none;
-}
-.tr {
-  display: flex;
-  background: #fff;
-  border-bottom: 1px solid #dcdcdc;
-}
-.tr:nth-of-type(2n + 1) {
-  background: #f0f0f0;
-}
-.tr:last-child {
-  border-bottom: none;
-}
-.tr > div {
-  flex: 1;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-  border-right: 1px solid #dcdcdc;
-}
-.tr > div:last-child {
-  border-right: none;
-}
-.tr > div.prev-result {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.tr > div.prev-result > span {
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 50%;
-  background: #fff;
-  border: 1px solid #468df1;
-  color: #000;
-  font-weight: bold;
-  margin: 0 4px;
-}
-.pagination {
-  display: flex;
-  margin: 20px 0;
-  justify-content: center;
-}
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 40px;
-  background: #468df1;
-  color: #fff;
-  padding: 0 10px;
-  margin-top: 20px;
-  border-radius: 10px 10px 0 0 ;
-}
-.title > span:last-child {
-  padding: 4px 10px;
-  background: blue;
-  border-radius: 10px;
-  cursor: pointer;
-}
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media screen and (min-width:900px) {
+    .container {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      background: url("~assets/img/2.jpeg") no-repeat;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .top>div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .top>div>img {
+      width: 150px;
+      height: 75px;
+      margin-right: 10px;
+    }
+
+    .top>ul>li {
+      width: 160px;
+    }
+
+    .top>ul>li.date>span {
+      color: #d83c3c;
+    }
+
+    .top>ul>li.countdown {
+      height: 34px;
+      line-height: 34px;
+      margin-top: 4px;
+      background: #fff;
+      border: 2px solid #d83c3c;
+      color: #000;
+      font-size: 24px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .top>ul>li.result {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .top>ul>li.result>span {
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      color: #000;
+      text-align: center;
+      line-height: 20px;
+      font-weight: bold;
+      margin: 0 4px;
+    }
+
+    .table {
+      border: 1px solid #dcdcdc;
+    }
+
+    .th {
+      display: flex;
+      background: #f0f0f0;
+      border-bottom: 1px solid #dcdcdc;
+    }
+
+    .th>div {
+      flex: 1;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      border-right: 1px solid #dcdcdc;
+    }
+
+    .th>div:last-child {
+      border-right: none;
+    }
+
+    .tr {
+      display: flex;
+      background: #fff;
+      border-bottom: 1px solid #dcdcdc;
+    }
+
+    .tr:nth-of-type(2n + 1) {
+      background: #f0f0f0;
+    }
+
+    .tr:last-child {
+      border-bottom: none;
+    }
+
+    .tr>div {
+      flex: 1;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      border-right: 1px solid #dcdcdc;
+    }
+
+    .tr>div:last-child {
+      border-right: none;
+    }
+
+    .tr>div.prev-result {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tr>div.prev-result>span {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #468df1;
+      color: #000;
+      font-weight: bold;
+      margin: 0 4px;
+    }
+
+    .pagination {
+      display: flex;
+      margin: 20px 0;
+      justify-content: center;
+    }
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+      background: #468df1;
+      color: #fff;
+      padding: 0 10px;
+      margin-top: 20px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .title>span:last-child {
+      padding: 4px 10px;
+      background: blue;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .el-main {
+      padding: 5px;
+    }
+    .container {
+      width: 100%;
+    }
+    .top {
+      display: flex;
+      flex-direction: column;
+    }
+    .top > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .top > div > img {
+      width: 100%;
+      height: 130px;
+      margin-bottom: 4px;
+    }
+    .top > ul {
+      margin-top: 4px;
+      background: #468df1;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      padding: 10px;
+    }
+    .top > ul > li.countdown {
+      width: 120px;
+      height: 30px;
+      line-height: 30px;
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .top > ul > li.result {
+      margin-bottom: 4px;
+    }
+    .top > ul > li.result > span {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      border: 2px solid #468df1;
+      border-radius: 50%;
+      color: #000;
+      text-align: center;
+      line-height: 20px;
+    }
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background: #468df1;
+      font-size: 16px;
+      border-radius: 8px 8px 0 0;
+      margin-top: 10px;
+      height: 30px;
+      line-height: 30px;
+    }
+    .table > .th {
+      display: flex;
+      flex-direction: row;
+      height: 30px;
+      line-height: 30px;
+      background: #f0f0f0;
+    }
+    .table > .th > div {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+    }
+    .table > .tr {
+      display: flex;
+      flex-direction: row;
+      min-height: 30px;
+      padding: 4px 0;
+      background: #fff;
+    }
+    .table > .tr > div {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 12px;
+    }
+    .table > .tr:nth-of-type(2n + 1) {
+      background: #f0f0f0;
+    }
+    .pagination {
+      display: flex;
+      margin: 20px 0;
+      justify-content: center;
+    }
+  }
 </style>

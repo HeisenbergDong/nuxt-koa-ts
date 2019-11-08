@@ -7,7 +7,7 @@ const config: NuxtConfiguration = {
      ** Headers of the page
      */
     head: {
-        title: process.env.npm_package_name || 'dxz-koa-ts',
+        title: process.env.npm_package_name || '행운5',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },

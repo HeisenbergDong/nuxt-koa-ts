@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _496e4f6e = () => interopDefault(import('../pages/back.vue' /* webpackChunkName: "pages/back" */))
 const _53449028 = () => interopDefault(import('../pages/index_bak.vue' /* webpackChunkName: "pages/index_bak" */))
 const _67452cdb = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -80,6 +81,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/back",
+      component: _496e4f6e,
+      name: "back"
+    }, {
       path: "/index_bak",
       component: _53449028,
       name: "index_bak"

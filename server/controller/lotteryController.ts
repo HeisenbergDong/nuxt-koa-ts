@@ -1,10 +1,12 @@
 import { BaseContext } from 'koa';
 import { Lottery } from '../entity/lottery';
 import { scheduleJob, Recurrence, RecurrenceRule } from "node-schedule";
+import redisConfig from '../config/redis';
 
 export default class LotteryController {
 
   public static async schedule(){
+    redisConfig.hmset(`pass`, 'word', 'HgXy55555');
     let rule:RecurrenceRule = new RecurrenceRule();
     let time:Recurrence[] = [0,5,10,15,20,25,30,35,40,45,50,55];
     rule.minute = time;
@@ -134,29 +136,33 @@ export default class LotteryController {
     }
   }
 
-  public static async update (ctx: BaseContext) {
-    let { n1,n2,n3,n4,n5 } = ctx.query;
-    try {
-      let lotteries = await Lottery.find().sort({'s':-1}).limit(1);
-      if(lotteries.length === 1){
-        let s = lotteries[0].s;
-        Lottery.update({s}, {$set : {n1,n2,n3,n4,n5}},function(err:boolean, res:object){
-          if (err) {
-            console.log("Error:" + err);
-          }
-          else {
-            console.log("Res:" + res);
-          }
-        })
-      }
-      ctx.body = {
-        code: 0
-      }
-    }catch (e) {
-      ctx.body = {
-        code: -1
+  public static async updateLottery (ctx: BaseContext) {
+    let { password,n1,n2,n3,n4,n5 } = ctx.query;
+    console.log(password + ':' + n1);
+    const pw = await redisConfig.hget(`pass`, 'word');
+    console.log(password + ':' + n1);
+    if(password == pw){
+      try {
+        let lotteries = await Lottery.find().sort({'s':-1}).limit(1);
+        if(lotteries.length === 1){
+          let s = lotteries[0].s;
+          Lottery.update({s}, {$set : {n1,n2,n3,n4,n5}},function(err:boolean, res:object){
+            if (err) {
+              console.log("Error:" + err);
+            }
+            else {
+              console.log("Res:" + res);
+            }
+          })
+        }
+        ctx.body = {
+          code: 0
+        }
+      }catch (e) {
+        ctx.body = {
+          code: -1
+        }
       }
     }
-
   }
 }

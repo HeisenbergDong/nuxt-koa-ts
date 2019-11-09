@@ -137,10 +137,9 @@ export default class LotteryController {
   }
 
   public static async updateLottery (ctx: BaseContext) {
-    let { password,n1,n2,n3,n4,n5 } = ctx.query;
-    console.log(password + ':' + n1);
+    let { password,n1,n2,n3,n4,n5 } = ctx.request.body;
     const pw = await redisConfig.hget(`pass`, 'word');
-    console.log(password + ':' + n1);
+    console.log(pw)
     if(password == pw){
       try {
         let lotteries = await Lottery.find().sort({'s':-1}).limit(1);
@@ -162,6 +161,10 @@ export default class LotteryController {
         ctx.body = {
           code: -1
         }
+      }
+    }else{
+      ctx.body = {
+        code: -1
       }
     }
   }

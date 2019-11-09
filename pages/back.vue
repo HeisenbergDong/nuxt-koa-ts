@@ -44,16 +44,23 @@
     n5 = 0;
 
     async updateLottery(){
-      await this.$axios.post('/lottery/generate',{
-        params:{
+      const {status,data:{code}} = await this.$axios.post('/lottery/generate',{
           password: this.password,
           n1: this.n1,
           n2: this.n2,
           n3: this.n3,
           n4: this.n4,
           n5: this.n5
-        }
       });
+      if(status == 200){
+        if(code !== -1){
+          alert('成功');
+        }else{
+          alert('失败');
+        }
+      }else{
+        alert('网络异常');
+      }
     }
 
   }

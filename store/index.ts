@@ -3,14 +3,18 @@ import { MutationTree, ActionTree } from "vuex";
 interface RootState {
   position: {},
   menu: Array<string>,
-  hotPlace: Array<string>
+  hotPlace: Array<string>,
+  host: string
 }
 
 export const state = (): RootState => ({
   position: {},
   menu: [],
-  hotPlace: []
+  hotPlace: [],
+  host: ""
 });
+
+
 
 export const mutations: MutationTree<any> = {
   // setPosition(state, position: object): void {
@@ -22,6 +26,9 @@ export const mutations: MutationTree<any> = {
   // setHotPlace(state, hotPlace: object): void {
   //   state.hotPlace = hotPlace;
   // }
+  setHost(state,host): void{
+    state.host = host;
+  }
 };
 
 export const actions: ActionTree<RootState, RootState> = {

@@ -301,9 +301,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 30px;
-      background: url("~assets/img/2.jpeg") no-repeat;
       background-size: cover;
-      color: #fff;
+      color: #080d1d;
     }
 
     .top>div {
@@ -459,7 +458,11 @@
     }
     .top {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background: #468df1;
+      padding: 0 10px;
     }
     .top > div {
       display: flex;
@@ -467,19 +470,18 @@
       justify-content: flex-start;
     }
     .top > div > img {
-      width: 100%;
-      height: 130px;
+      width: 150px;
+      height: 75px;
       margin-bottom: 4px;
     }
     .top > ul {
       margin-top: 4px;
-      background: #468df1;
       background-size: cover;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: #fff;
+      color: #0e1d1d;
       padding: 10px;
     }
     .top > ul > li.countdown {

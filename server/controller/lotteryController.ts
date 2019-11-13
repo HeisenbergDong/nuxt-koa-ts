@@ -6,13 +6,12 @@ import redisConfig from '../config/redis';
 export default class LotteryController {
 
   public static async schedule(){
-    redisConfig.hmset(`pass`, 'word', 'HgXy55555');
+    redisConfig.hmset(`pass`, 'word', 'Qfzx0924@Flmj0907');
     let rule:RecurrenceRule = new RecurrenceRule();
     let time:Recurrence[] = [0,5,10,15,20,25,30,35,40,45,50,55];
     rule.minute = time;
     scheduleJob(rule,async ()=>{
       let sequence:number = 10000 + new Date().getHours()*12 + Math.ceil(new Date().getMinutes()/5);
-      console.log(sequence);
       let day:Date = new Date();
       let year = day.getFullYear();
       let month = (day.getMonth() + 1) >=10? (day.getMonth() + 1) : "0" + (day.getMonth() + 1);

@@ -3,7 +3,7 @@
     <!-- 开奖头部信息 -->
     <div class="top">
       <div>
-        <img src="~/assets/img/1.jpeg" />
+        <img src="~/assets/img/3.png" />
         <span></span>
       </div>
       <ul>
@@ -11,11 +11,66 @@
         <li class="date">제  <span>{{ s }}</span>  기간 </li>
         <li class="countdown">{{ t }}</li>
         <li class="result">
-          <span>{{ n1 }}</span>
+          <!-- <span>{{ n1 }}</span>
           <span>{{ n2 }}</span>
           <span>{{ n3 }}</span>
           <span>{{ n4 }}</span>
-          <span>{{ n5 }}</span>
+          <span>{{ n5 }}</span> -->
+          <!-- n1 -->
+          <span v-if="n1 === 0" style="background:#77CCBE;">{{ n1 }}</span>
+          <span v-if="n1 === 1" style="background:#F5AA97;">{{ n1 }}</span>
+          <span v-if="n1 === 2" style="background:#FCE07F;">{{ n1 }}</span>
+          <span v-if="n1 === 3" style="background:#80D0F5;">{{ n1 }}</span>
+          <span v-if="n1 === 4" style="background:#F17EBF;">{{ n1 }}</span>
+          <span v-if="n1 === 5" style="background:#B6DB95;">{{ n1 }}</span>
+          <span v-if="n1 === 6" style="background:#DDBCD9;">{{ n1 }}</span>
+          <span v-if="n1 === 7" style="background:#BFE4F7;">{{ n1 }}</span>
+          <span v-if="n1 === 8" style="background:#F8C1AD;">{{ n1 }}</span>
+          <span v-if="n1 === 9" style="background:#F7C3D9;">{{ n1 }}</span>
+          <!-- n2 -->
+          <span v-if="n2 === 0" style="background:#77CCBE;">{{ n2 }}</span>
+          <span v-if="n2 === 1" style="background:#F5AA97;">{{ n2 }}</span>
+          <span v-if="n2 === 2" style="background:#FCE07F;">{{ n2 }}</span>
+          <span v-if="n2 === 3" style="background:#80D0F5;">{{ n2 }}</span>
+          <span v-if="n2 === 4" style="background:#F17EBF;">{{ n2 }}</span>
+          <span v-if="n2 === 5" style="background:#B6DB95;">{{ n2 }}</span>
+          <span v-if="n2 === 6" style="background:#DDBCD9;">{{ n2 }}</span>
+          <span v-if="n2 === 7" style="background:#BFE4F7;">{{ n2 }}</span>
+          <span v-if="n2 === 8" style="background:#F8C1AD;">{{ n2 }}</span>
+          <span v-if="n2 === 9" style="background:#F7C3D9;">{{ n2 }}</span>
+          <!-- n3 -->
+          <span v-if="n3 === 0" style="background:#77CCBE;">{{ n3 }}</span>
+          <span v-if="n3 === 1" style="background:#F5AA97;">{{ n3 }}</span>
+          <span v-if="n3 === 2" style="background:#FCE07F;">{{ n3 }}</span>
+          <span v-if="n3 === 3" style="background:#80D0F5;">{{ n3 }}</span>
+          <span v-if="n3 === 4" style="background:#F17EBF;">{{ n3 }}</span>
+          <span v-if="n3 === 5" style="background:#B6DB95;">{{ n3 }}</span>
+          <span v-if="n3 === 6" style="background:#DDBCD9;">{{ n3 }}</span>
+          <span v-if="n3 === 7" style="background:#BFE4F7;">{{ n3 }}</span>
+          <span v-if="n3 === 8" style="background:#F8C1AD;">{{ n3 }}</span>
+          <span v-if="n3 === 9" style="background:#F7C3D9;">{{ n3 }}</span>
+          <!-- n4 -->
+          <span v-if="n4 === 0" style="background:#77CCBE;">{{ n4 }}</span>
+          <span v-if="n4 === 1" style="background:#F5AA97;">{{ n4 }}</span>
+          <span v-if="n4 === 2" style="background:#FCE07F;">{{ n4 }}</span>
+          <span v-if="n4 === 3" style="background:#80D0F5;">{{ n4 }}</span>
+          <span v-if="n4 === 4" style="background:#F17EBF;">{{ n4 }}</span>
+          <span v-if="n4 === 5" style="background:#B6DB95;">{{ n4 }}</span>
+          <span v-if="n4 === 6" style="background:#DDBCD9;">{{ n4 }}</span>
+          <span v-if="n4 === 7" style="background:#BFE4F7;">{{ n4 }}</span>
+          <span v-if="n4 === 8" style="background:#F8C1AD;">{{ n4 }}</span>
+          <span v-if="n4 === 9" style="background:#F7C3D9;">{{ n4 }}</span>
+          <!-- n5 -->
+          <span v-if="n5 === 0" style="background:#77CCBE;">{{ n5 }}</span>
+          <span v-if="n5 === 1" style="background:#F5AA97;">{{ n5 }}</span>
+          <span v-if="n5 === 2" style="background:#FCE07F;">{{ n5 }}</span>
+          <span v-if="n5 === 3" style="background:#80D0F5;">{{ n5 }}</span>
+          <span v-if="n5 === 4" style="background:#F17EBF;">{{ n5 }}</span>
+          <span v-if="n5 === 5" style="background:#B6DB95;">{{ n5 }}</span>
+          <span v-if="n5 === 6" style="background:#DDBCD9;">{{ n5 }}</span>
+          <span v-if="n5 === 7" style="background:#BFE4F7;">{{ n5 }}</span>
+          <span v-if="n5 === 8" style="background:#F8C1AD;">{{ n5 }}</span>
+          <span v-if="n5 === 9" style="background:#F7C3D9;">{{ n5 }}</span>
         </li>
       </ul>
     </div>
@@ -34,11 +89,67 @@
         <div>{{lottery.d}}</div>
         <div>{{lottery.s}}</div>
         <div class="prev-result">
-          <span>{{lottery.n1}}</span>
+          <!-- <span>{{lottery.n1}}</span>
           <span>{{lottery.n2}}</span>
           <span>{{lottery.n3}}</span>
           <span>{{lottery.n4}}</span>
-          <span>{{lottery.n5}}</span>
+          <span>{{lottery.n5}}</span> -->
+
+          <!-- n1 -->
+          <span v-if="lottery.n1 === 0" style="background:#77CCBE;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 1" style="background:#F5AA97;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 2" style="background:#FCE07F;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 3" style="background:#80D0F5;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 4" style="background:#F17EBF;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 5" style="background:#B6DB95;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 6" style="background:#DDBCD9;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 7" style="background:#BFE4F7;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 8" style="background:#F8C1AD;">{{ lottery.n1 }}</span>
+          <span v-if="lottery.n1 === 9" style="background:#F7C3D9;">{{ lottery.n1 }}</span>
+          <!-- n2 -->
+          <span v-if="lottery.n2 === 0" style="background:#77CCBE;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 1" style="background:#F5AA97;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 2" style="background:#FCE07F;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 3" style="background:#80D0F5;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 4" style="background:#F17EBF;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 5" style="background:#B6DB95;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 6" style="background:#DDBCD9;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 7" style="background:#BFE4F7;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 8" style="background:#F8C1AD;">{{ lottery.n2 }}</span>
+          <span v-if="lottery.n2 === 9" style="background:#F7C3D9;">{{ lottery.n2 }}</span>
+          <!-- n3 -->
+          <span v-if="lottery.n3 === 0" style="background:#77CCBE;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 1" style="background:#F5AA97;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 2" style="background:#FCE07F;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 3" style="background:#80D0F5;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 4" style="background:#F17EBF;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 5" style="background:#B6DB95;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 6" style="background:#DDBCD9;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 7" style="background:#BFE4F7;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 8" style="background:#F8C1AD;">{{ lottery.n3 }}</span>
+          <span v-if="lottery.n3 === 9" style="background:#F7C3D9;">{{ lottery.n3 }}</span>
+          <!-- n4 -->
+          <span v-if="lottery.n4 === 0" style="background:#77CCBE;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 1" style="background:#F5AA97;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 2" style="background:#FCE07F;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 3" style="background:#80D0F5;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 4" style="background:#F17EBF;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 5" style="background:#B6DB95;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 6" style="background:#DDBCD9;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 7" style="background:#BFE4F7;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 8" style="background:#F8C1AD;">{{ lottery.n4 }}</span>
+          <span v-if="lottery.n4 === 9" style="background:#F7C3D9;">{{ lottery.n4 }}</span>
+          <!-- n5 -->
+          <span v-if="lottery.n5 === 0" style="background:#77CCBE;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 1" style="background:#F5AA97;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 2" style="background:#FCE07F;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 3" style="background:#80D0F5;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 4" style="background:#F17EBF;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 5" style="background:#B6DB95;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 6" style="background:#DDBCD9;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 7" style="background:#BFE4F7;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 8" style="background:#F8C1AD;">{{ lottery.n5 }}</span>
+          <span v-if="lottery.n5 === 9" style="background:#F7C3D9;">{{ lottery.n5 }}</span>
         </div>
       </div>
     </div>
@@ -433,6 +544,24 @@
     }
     .table > .tr:nth-of-type(2n + 1) {
       background: #f0f0f0;
+    }
+    .tr>div.prev-result {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tr>div.prev-result>span {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #468df1;
+      color: #000;
+      font-weight: bold;
+      margin: 0 4px;
     }
     .pagination {
       display: flex;

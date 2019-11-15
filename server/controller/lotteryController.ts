@@ -11,17 +11,26 @@ export default class LotteryController {
     let time:Recurrence[] = [0,5,10,15,20,25,30,35,40,45,50,55];
     rule.minute = time;
     scheduleJob(rule,async ()=>{
-      let sequence:number = 10000 + new Date().getHours()*12 + Math.ceil(new Date().getMinutes()/5);
+      let se = "000";
+      let sequence:number = new Date().getHours()*12 + Math.ceil(new Date().getMinutes()/5);
+      if(sequence<10){
+        se = "00"+sequence.toString();
+      }else if(sequence>=10 && sequence<100){
+        se = "0" + sequence.toString();
+      }else{
+        se = sequence.toString();
+      }
       let day:Date = new Date();
       let year = day.getFullYear();
       let month = (day.getMonth() + 1) >=10? (day.getMonth() + 1) : "0" + (day.getMonth() + 1);
       let date = day.getDate() >=10 ? day.getDate() : "0" + day.getDate();
       let hours = day.getHours() >=10 ? day.getHours() : "0" + day.getHours();
-      let minutes = day.getMinutes() >=10 ? day.getMinutes() : "0" + day.getMinutes();
+      let min = day.getMinutes() + 5;
+      let minutes = min >=10 ? min : "0" + min;
       let seconds = day.getSeconds() >=10 ? day.getSeconds() : "0" + day.getSeconds();
       let currentDate = year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + seconds;
       let d = currentDate.toString();
-      let s = year.toString() + month.toString() + date.toString() + sequence.toString();
+      let s = year.toString() + month.toString() + date.toString() + se;
       let n1 = Math.floor(Math.random()*10);
       let n2 = Math.floor(Math.random()*10);
       let n3 = Math.floor(Math.random()*10);
@@ -77,11 +86,12 @@ export default class LotteryController {
     let month = (day.getMonth() + 1) >=10? (day.getMonth() + 1) : "0" + (day.getMonth() + 1);
     let date = day.getDate() >=10 ? day.getDate() : "0" + day.getDate();
     let hours = day.getHours() >=10 ? day.getHours() : "0" + day.getHours();
-    let minutes = day.getMinutes() >=10 ? day.getMinutes() : "0" + day.getMinutes();
+    let min = day.getMinutes() + 5;
+    let minutes = min >=10 ? min : "0" + min;
     let seconds = day.getSeconds() >=10 ? day.getSeconds() : "0" + day.getSeconds();
     let currentDate = year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + seconds;
     let d = currentDate.toString();
-    let s = year.toString() + month.toString() + date.toString() + 10000;
+    let s = year.toString() + month.toString() + date.toString() + "000";
     let lottery = new Lottery({
       d,
       s,
@@ -114,7 +124,8 @@ export default class LotteryController {
   public static async init (ctx: BaseContext) {
 
     let date:Date = new Date();
-    let minutes = 4 - date.getMinutes()%5;
+    let min = date.getMinutes() + 5;
+    let minutes = 4 - min%5;
     let seconds:number = 59 - date.getSeconds();
     let second = seconds < 10 ? '0' + seconds : '' + seconds;
     let t = minutes + ':' + second;

@@ -11,12 +11,6 @@
         <li class="date">제  <span>{{ s }}</span>  기간 </li>
         <li class="countdown">{{ t }}</li>
         <li class="result">
-          <!-- <span>{{ n1 }}</span>
-          <span>{{ n2 }}</span>
-          <span>{{ n3 }}</span>
-          <span>{{ n4 }}</span>
-          <span>{{ n5 }}</span> -->
-          <!-- n1 -->
           <span v-if="n1 === 0" style="background:#77CCBE;">{{ n1 }}</span>
           <span v-if="n1 === 1" style="background:#F5AA97;">{{ n1 }}</span>
           <span v-if="n1 === 2" style="background:#FCE07F;">{{ n1 }}</span>
@@ -77,7 +71,7 @@
     <!-- 往期开奖信息 -->
     <div class="title">
       <span>왕기 행운의 숫자</span>
-      <span>행운5.</span>
+      <span>행운5</span>
     </div>
     <div class="table">
       <div class="th">
@@ -89,11 +83,6 @@
         <div>{{lottery.d}}</div>
         <div>{{lottery.s}}</div>
         <div class="prev-result">
-          <!-- <span>{{lottery.n1}}</span>
-          <span>{{lottery.n2}}</span>
-          <span>{{lottery.n3}}</span>
-          <span>{{lottery.n4}}</span>
-          <span>{{lottery.n5}}</span> -->
 
           <!-- n1 -->
           <span v-if="lottery.n1 === 0" style="background:#77CCBE;">{{ lottery.n1 }}</span>
@@ -255,7 +244,7 @@
       });
       if(status === 200){
         this.lotteries = lotteries;
-        this.total = total;
+        this.total = total > 100?100:total;
       }else{
         this.lotteries = [];
       }
@@ -272,7 +261,7 @@
       },1000)
     }
 
-    pageNo: number;
+
   }
 
 </script>
@@ -292,7 +281,7 @@
 
   @media screen and (min-width:900px) {
     .container {
-      width: 100%;
+      width: 1024px;
       margin: 0 auto;
     }
 
@@ -319,6 +308,7 @@
 
     .top>ul>li {
       width: 160px;
+        font-size: 15px;
     }
 
     .top>ul>li.date>span {
@@ -342,6 +332,7 @@
       justify-content: center;
       align-items: center;
       margin-top: 4px;
+        font-size: 16px;
     }
 
     .top>ul>li.result>span {
@@ -364,6 +355,7 @@
       display: flex;
       background: #f0f0f0;
       border-bottom: 1px solid #dcdcdc;
+        font-size: 20px;
     }
 
     .th>div {
@@ -372,6 +364,7 @@
       height: 40px;
       line-height: 40px;
       border-right: 1px solid #dcdcdc;
+        font-size: 20px;
     }
 
     .th>div:last-child {
@@ -398,6 +391,7 @@
       height: 40px;
       line-height: 40px;
       border-right: 1px solid #dcdcdc;
+        font-size: 18px;
     }
 
     .tr>div:last-child {
@@ -439,6 +433,7 @@
       padding: 0 10px;
       margin-top: 20px;
       border-radius: 10px 10px 0 0;
+        font-size: 16px;
     }
 
     .title>span:last-child {

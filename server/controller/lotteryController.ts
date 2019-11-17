@@ -12,7 +12,7 @@ export default class LotteryController {
     rule.minute = time;
     scheduleJob(rule,async ()=>{
       let se = "000";
-      let sequence:number = new Date().getHours()*12 + Math.ceil(new Date().getMinutes()/5);
+      let sequence:number = new Date().getHours()*12 + Math.ceil(new Date().getMinutes()/5) + 1;
       if(sequence<10){
         se = "00"+sequence.toString();
       }else if(sequence>=10 && sequence<100){
@@ -149,7 +149,6 @@ export default class LotteryController {
   public static async updateLottery (ctx: BaseContext) {
     let { password,n1,n2,n3,n4,n5 } = ctx.request.body;
     const pw = await redisConfig.hget(`pass`, 'word');
-    console.log(pw)
     if(password == pw){
       try {
         let lotteries = await Lottery.find().sort({'s':-1}).limit(1);
